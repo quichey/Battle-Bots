@@ -13,7 +13,7 @@ export const Pawn = ({ pieceId }: PawnProp) => {
       pieceType="Pawn"
       getValidSquares={(row, col) => {
         var validCols = [0, 1, 2, 3, 4, 5, 6, 7];
-        var direction = color === "white" ? -1 : 1;
+        var direction = color === "White" ? -1 : 1;
         return validCols.map((validCol) => {
           return `${row + direction}-${validCol}`;
         });
