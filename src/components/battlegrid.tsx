@@ -5,11 +5,15 @@ import { Bishop } from "./pieces/Bishop";
 import { Knight } from "./pieces/Knight";
 
 export const BattleGrid = () => {
+  const col = new Array(8);
+  col.fill(100);
+  const row = new Array(8);
+  row.fill(100);
   const gameBoardCss = {
     display: "grid",
-    gridTemplateColumns: "120px 120px 120px 120px 120px 120px 120px 120px",
+    gridTemplateColumns: col.map((size) => `${size}px`).join(" "),
     //gridTemplateColumns: "120px 120px 120px",
-    //gridTemplateTows: "120px 120px 120px 20px",
+    gridTemplateRows: row.map((size) => `${size}px`).join(" "),
     justifyContent: "center",
     height: "800px",
   };
@@ -19,16 +23,13 @@ export const BattleGrid = () => {
     border: "2px solid black",
   };
 
-  const col = new Array(8);
-  col.fill(0);
-  const row = new Array(8);
-  row.fill(0);
   const initialBoard = Array(64).fill("");
 
   row.forEach((el, idx) => {
     col.forEach((el2, idx2) => {
       let piece: JSX.Element | "" = "";
-      var pieceId = `${idx}-${idx2}`;
+      let color: "white" | "black" = idx > 3 ? "white" : "black";
+      var pieceId = `${idx}-${idx2}-${color}`;
       if (idx === 1 || idx === 6) {
         piece = <Pawn pieceId={pieceId} />;
       } else if (idx === 0 || idx === 7) {
