@@ -1,8 +1,6 @@
 import React from "react";
-import PixelGrid from "react-pixel-grid";
-
-import { Piece } from "./pieces/Piece";
 import { Pawn } from "./pieces/Pawn";
+import { Knight } from "./pieces/Knight";
 
 export const BattleGrid = () => {
   const gameBoardCss = {
@@ -19,24 +17,20 @@ export const BattleGrid = () => {
     border: "2px solid black",
   };
 
-  function allowDrop(ev) {
+  function allowDrop(ev: any) {
     ev.preventDefault();
   }
 
-  function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-  }
-
-  function drop(ev) {
+  function drop(ev: any) {
     ev.preventDefault();
     var dragId = ev.dataTransfer.getData("dragId");
-    var pieceType = ev.dataTransfer.getData("pieceType");
-    if (pieceType === "pawn") {
-      var currPieceRow = Number(dragId.split("-")[0]);
-      var dropRow = Number(ev.target.id.split("-")[0]);
-      if (dropRow !== currPieceRow + 1) return;
+    var validSquares = JSON.parse(ev.dataTransfer.getData("validSquares"));
+    //var pieceType = ev.dataTransfer.getData("pieceType");
+
+    var dropCell = ev.target.id.slice(0, 3);
+    if (validSquares.includes(dropCell)) {
+      ev.target.appendChild(document.getElementById(dragId));
     }
-    ev.target.appendChild(document.getElementById(dragId));
   }
 
   const col = new Array(8);
@@ -44,12 +38,21 @@ export const BattleGrid = () => {
   const row = new Array(8);
   row.fill(0);
 
-  const divs = [];
+  const divs: React.ReactNode[] = [];
 
   row.forEach((el, idx) => {
     col.forEach((el2, idx2) => {
-      const piece =
-        idx === 1 || idx === 6 ? <Pawn pieceId={`${idx}-${idx2}`} /> : "";
+      let piece: JSX.Element | "" = "";
+      var pieceId = `${idx}-${idx2}`;
+
+      if (idx === 1 || idx === 6) {
+        piece = <Pawn pieceId={pieceId} />;
+      } else if (idx === 0 || idx === 7) {
+        //set pieces in first and last rows
+        if (idx2 === 2 || idx2 === 5) {
+          piece = <Knight pieceId={pieceId} />;
+        }
+      }
       divs.push(
         <div
           key={`${idx}-${idx2}`}
@@ -65,6 +68,7 @@ export const BattleGrid = () => {
   });
 
   return false ? (
+    /*
     <PixelGrid
       data={Array(400).fill(0).map(Math.random)}
       options={{
@@ -73,18 +77,23 @@ export const BattleGrid = () => {
         background: [0, 0.5, 0.7, 1],
       }}
     />
+    */
+    ""
   ) : (
-    <React.Fragment>
-      <div key={0} style={gameBoardCss}>
-        {divs}
-      </div>
+    //<React.Fragment>
+    <div key={0} style={gameBoardCss}>
+      {divs}
+    </div>
+    /*
       {true ? (
-        <Piece pieceId="test" img="TEST" />
+        //<Piece pieceId="test" img="TEST" />
+        ""
       ) : (
         <div key={1} id="piece" draggable="true" onDragStart={drag}>
           TEXT
         </div>
       )}
     </React.Fragment>
+    */
   );
 };
