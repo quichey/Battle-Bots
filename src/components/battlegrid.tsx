@@ -17,6 +17,40 @@ export const BattleGrid = () => {
     border: "2px solid black",
   };
 
+  const col = new Array(8);
+  col.fill(0);
+  const row = new Array(8);
+  row.fill(0);
+  const initialBoard = Array(64).fill("");
+
+  row.forEach((el, idx) => {
+    col.forEach((el2, idx2) => {
+      let piece: JSX.Element | "" = "";
+      var pieceId = `${idx}-${idx2}`;
+      if (idx === 1 || idx === 6) {
+        piece = <Pawn pieceId={pieceId} />;
+      } else if (idx === 0 || idx === 7) {
+        //set pieces in first and last rows
+        if (idx2 === 2 || idx2 === 5) {
+          piece = <Knight pieceId={pieceId} />;
+        }
+      }
+      initialBoard[idx * 8 + idx2] = (
+        <div
+          key={`${idx}-${idx2}`}
+          id={`${idx}-${idx2}-square`}
+          style={boxCss}
+          onDrop={drop}
+          onDragOver={allowDrop}
+        >
+          {piece}
+        </div>
+      );
+    });
+  });
+
+  const [board, setBoard] = React.useState(initialBoard);
+
   function allowDrop(ev: any) {
     ev.preventDefault();
   }
@@ -29,15 +63,12 @@ export const BattleGrid = () => {
 
     var dropCell = ev.target.id.slice(0, 3);
     if (validSquares.includes(dropCell)) {
-      ev.target.appendChild(document.getElementById(dragId));
+      var pieceEl = document.getElementById(dragId);
+      ev.target.appendChild(pieceEl);
+      pieceEl && (pieceEl.id = dropCell);
     }
   }
-
-  const col = new Array(8);
-  col.fill(0);
-  const row = new Array(8);
-  row.fill(0);
-
+  /*
   const divs: React.ReactNode[] = [];
 
   row.forEach((el, idx) => {
@@ -66,7 +97,7 @@ export const BattleGrid = () => {
       );
     });
   });
-
+*/
   return false ? (
     /*
     <PixelGrid
@@ -81,9 +112,14 @@ export const BattleGrid = () => {
     ""
   ) : (
     //<React.Fragment>
+    //<boardContext.Provider value={{updatePiecePos: () => {
+
+    //}}}>
     <div key={0} style={gameBoardCss}>
-      {divs}
+      {board}
     </div>
+    //</boardContext.Provider>
+
     /*
       {true ? (
         //<Piece pieceId="test" img="TEST" />

@@ -1,24 +1,22 @@
 import { Piece } from "./Piece.";
-import SVG from "../../logo.svg";
+import KnightSVG from "../../util/images/Knight_Black.svg";
 
 type KnightProp = {
   pieceId: string;
 };
 
 export const Knight = ({ pieceId }: KnightProp) => {
-  const img = false ? SVG : <img src="http://www.w3.org/2000/svg" alt="PAWN" />;
-
   const validChanges: number[] = [+2, -2, +1, -1];
 
   return (
     <Piece
       pieceId={pieceId}
-      img={"http://www.w3.org/2000/svg"}
+      img={KnightSVG}
       getValidSquares={(row, col) => {
         var validSquares: string[] = [];
         validChanges.forEach((rowChange) => {
           validChanges.forEach((colChange) => {
-            if (Math.abs(row) !== Math.abs(col)) {
+            if (Math.abs(rowChange) !== Math.abs(colChange)) {
               validSquares.push(`${row + rowChange}-${col + colChange}`);
             }
           });
