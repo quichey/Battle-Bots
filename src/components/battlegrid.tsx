@@ -1,6 +1,7 @@
 import React from "react";
 import { Pawn } from "./pieces/Pawn";
 import { Rook } from "./pieces/Rook";
+import { Bishop } from "./pieces/Bishop";
 import { Knight } from "./pieces/Knight";
 
 export const BattleGrid = () => {
@@ -34,6 +35,9 @@ export const BattleGrid = () => {
         //set pieces in first and last rows
         if (idx2 === 0 || idx2 === 7) {
           piece = <Rook pieceId={pieceId} />;
+        }
+        if (idx2 === 1 || idx2 === 6) {
+          piece = <Bishop pieceId={pieceId} />;
         }
         if (idx2 === 2 || idx2 === 5) {
           piece = <Knight pieceId={pieceId} />;
