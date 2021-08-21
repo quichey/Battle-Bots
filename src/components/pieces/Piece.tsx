@@ -19,16 +19,16 @@ export const Piece = ({ img, pieceId, getValidSquares }: PieceProps) => {
   };
 
   return (
-    <div style={{ width: 100, height: 100 }}>
-      <img
-        width="100px"
-        height="100px"
-        id={pieceId}
-        src={img}
-        alt="test"
-        onDragStart={drag}
-        draggable
-      ></img>
-    </div>
+    //<div style={{ width: 100, height: 100 }}>
+    <img
+      width="100px"
+      height="100px"
+      id={pieceId}
+      src={img}
+      alt="test"
+      onDragStart={drag}
+      draggable
+    ></img>
+    //</div>
   );
 };

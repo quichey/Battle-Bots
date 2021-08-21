@@ -1,4 +1,4 @@
-import { Piece } from "./Piece.";
+import { Piece } from "./Piece";
 import PawnSVG from "../../util/images/Pawn_White.svg";
 
 export const Pawn = ({ pieceId }) => {

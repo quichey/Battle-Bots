@@ -1,4 +1,4 @@
-import { Piece } from "./Piece.";
+import { Piece } from "./Piece";
 import KnightSVG from "../../util/images/Knight_Black.svg";
 
 type KnightProp = {
