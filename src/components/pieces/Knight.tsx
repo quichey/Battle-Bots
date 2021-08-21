@@ -1,5 +1,4 @@
 import { Piece } from "./Piece";
-import KnightSVG from "../../util/images/Knight_Black.svg";
 
 type KnightProp = {
   pieceId: string;
@@ -11,7 +10,7 @@ export const Knight = ({ pieceId }: KnightProp) => {
   return (
     <Piece
       pieceId={pieceId}
-      img={KnightSVG}
+      pieceType="Knight"
       getValidSquares={(row, col) => {
         var validSquares: string[] = [];
         validChanges.forEach((rowChange) => {

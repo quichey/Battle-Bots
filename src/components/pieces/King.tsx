@@ -1,15 +1,15 @@
 import { Piece } from "./Piece";
 
-type BishopProp = {
+type KingProp = {
   pieceId: string;
 };
 
-export const Bishop = ({ pieceId }: BishopProp) => {
+export const King = ({ pieceId }: KingProp) => {
   var boardIndices: number[] = [0, 1, 2, 3, 4, 5, 6, 7];
   return (
     <Piece
       pieceId={pieceId}
-      pieceType="Bishop"
+      pieceType="King"
       getValidSquares={(row, col) => {
         var validSquares: string[] = [];
         boardIndices.forEach((idx) => {

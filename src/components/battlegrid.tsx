@@ -1,4 +1,6 @@
 import React from "react";
+import { King } from "./pieces/King";
+import { Queen } from "./pieces/Queen";
 import { Pawn } from "./pieces/Pawn";
 import { Rook } from "./pieces/Rook";
 import { Bishop } from "./pieces/Bishop";
@@ -28,12 +30,18 @@ export const BattleGrid = () => {
   row.forEach((el, idx) => {
     col.forEach((el2, idx2) => {
       let piece: JSX.Element | "" = "";
-      let color: "white" | "black" = idx > 3 ? "white" : "black";
+      let color: "White" | "Black" = idx > 3 ? "White" : "Black";
       var pieceId = `${idx}-${idx2}-${color}`;
       if (idx === 1 || idx === 6) {
         piece = <Pawn pieceId={pieceId} />;
       } else if (idx === 0 || idx === 7) {
         //set pieces in first and last rows
+        if (idx2 === 3) {
+          piece = <King pieceId={pieceId} />;
+        }
+        if (idx2 === 4) {
+          piece = <Queen pieceId={pieceId} />;
+        }
         if (idx2 === 0 || idx2 === 7) {
           piece = <Rook pieceId={pieceId} />;
         }

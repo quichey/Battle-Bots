@@ -1,5 +1,4 @@
 import { Piece } from "./Piece";
-import RookSVG from "../../util/images/Rook_Black.svg";
 
 type RookProp = {
   pieceId: string;
@@ -10,7 +9,7 @@ export const Rook = ({ pieceId }: RookProp) => {
   return (
     <Piece
       pieceId={pieceId}
-      img={RookSVG}
+      pieceType="Rook"
       getValidSquares={(row, col) => {
         var validSquares: string[] = [];
         boardIndices.forEach((idx) => {
